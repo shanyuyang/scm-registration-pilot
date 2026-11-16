@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>登录资料 · 试用版</title>
+  <link rel="stylesheet" href="./app.css?v=4">
+  <script defer src="./app.js?v=12"></script>
+</head>
+<body data-api-path="https://cloud1-d2gcviutuf82a0f17-1429108820.ap-shanghai.app.tcloudbase.com/scm-registration-pilot" data-link-mode="true">
+  <aside class="rail">
+    <a href="./" class="brand"><span class="brand-icon">S</span> SCM <b>试用</b></a>
+    <a class="active" href="./" aria-current="page">登录资料</a>
+  </aside>
+  <main>
+    <header class="page-header">
+      <div><h1>登录资料</h1><p class="hint">导出时应用修改。刷新或关闭页面后清空。<a href="./sample.xlsx" download>下载模拟报告</a></p></div>
+    </header>
+    <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+    <form class="panel upload-panel" id="pilot-login" hidden>
+      <label for="pilot-code">试用访问码</label>
+      <input id="pilot-code" type="password" required autocomplete="off" aria-describedby="pilot-hint">
+      <button class="button primary" type="submit">进入</button>
+      <p id="pilot-hint" class="hint">请用模拟报告验证流程。工厂、商标和材质代码请手工核对。</p>
+    </form>
+    <section class="panel upload-panel" id="pilot-upload" aria-label="上传检品报告" hidden>
+      <div class="upload-controls">
+        <label class="dropzone" id="dropzone" for="files" tabindex="0">
+          <input id="files" type="file" accept=".xlsx" multiple>
+          <strong>选择或拖入【検品報告書】</strong>
+          <span class="hint">.xlsx · 每个 JAN 一份 · 最多 20 份 · 单份最多 5 MB · 合计最多 60 MB</span>
+        </label>
+        <button id="preview" class="button secondary" disabled>生成预览</button>
+      </div>
+      <div id="selected-files" class="selected-files" aria-live="polite"></div>
+    </section>
+    <div class="workspace" id="pilot-workspace" hidden>
+      <section class="panel review-panel">
+        <div id="empty" class="empty">生成预览后可编辑字段并导出 CSV。</div>
+        <div id="review" hidden>
+          <div class="review-header">
+            <div class="product-heading"><h2 id="product-title"></h2><span id="batch-status" class="status"></span></div>
+            <div class="record-line"><label for="record">JAN</label><select id="record"></select></div>
+            <button id="export" class="button primary">导出 CSV</button>
+          </div>
+          <div class="review-meta">
+            <div class="metrics"><span id="batch-number"></span><span>共 <strong>36</strong> 项</span><span>已核验 <strong id="ready-count">0</strong></span><span>待核对 <strong id="pending-count">0</strong></span><span>冲突 <strong id="conflict-count">0</strong></span></div>
+            <details class="files-detail"><summary>文件来源</summary><div id="source-files"></div></details>
+          </div>
+          <div id="record-errors" class="record-errors" role="alert" hidden></div>
+          <div class="table-toolbar"><div class="filters" role="group" aria-label="筛选字段"><button class="selected" data-filter="all">全部</button><button data-filter="pending">待核对</button><button data-filter="conflict">冲突</button><button data-filter="missing">缺失</button></div><button id="normalize-names" class="button secondary" disabled>补齐读音／英文半角</button></div>
+          <div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">内容</th><th scope="col">核对</th></tr></thead><tbody id="fields"></tbody></table></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
