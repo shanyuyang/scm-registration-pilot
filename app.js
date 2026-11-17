@@ -6,7 +6,7 @@
   const warnings = {UNIT_UNKNOWN:'原始单位不明，请核对后输入标准单位数值',SOURCE_CONFLICT:'不同来源的数值存在差异',WEIGHT_SCOPE_DIFFERENCE:'商品重量与物流重量口径不同，请确认',READING_REVIEW_REQUIRED:'已根据商品名自动生成读音，可核对或修改',CROSS_CHECK_UNAVAILABLE:'缺少可验证的交叉来源',INVALID_NUMBER:'原始数字格式异常'};
   warnings.NAME_CHANGED_READING_REVIEW = '商品名称已修改，请重新核对两个读音字段';
   warnings.PRICE_COMPONENT_MISSING = '请核对原単価、マージン和パッケージ，并填写合计';
-  warnings.ALPHANUMERIC_READING_REVIEW = '英数字已自动转换为字母名和日文数字读音';
+  warnings.ALPHANUMERIC_READING_REVIEW = '英文字母已转换为读音，数字保留原样';
   warnings.READING_UNRESOLVED = '商品名中仍有无法转换的内容，请填写半角カナ';
   warnings.NON_ASCII_ENGLISH = '此字段需半角英文，仍有中文或日文时请人工修改';
   const readyStatuses = new Set(['EXTRACTED','CONVERTED','CROSS_CHECKED','DEFAULTED','MANUAL_CONFIRMED']);
