@@ -226,7 +226,7 @@
       const management = item.management_number || (source.includes('【') ? sourcePrefix : '');
       const product = item.fields['商品名称'].value;
       const filename = management + '【新商品登録資料】' + item.jan + product;
-      link.download = filename.replace(/[\\/:*?"<>| -]/g, ' ').trim().slice(0, 180) + '.csv';
+      link.download = filename.replace(/[\\/:*?"<>|\x00-\x1f]/g, ' ').trim().slice(0, 180) + '.csv';
     } else {
       link.download = '複数商品【新商品登録資料】.csv';
     }
