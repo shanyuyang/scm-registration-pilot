@@ -217,7 +217,19 @@
     }
     const response = await request('/export.csv',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({records:batch.records.map(workingCopy)})});
     const url = URL.createObjectURL(await response.blob());
-    const link = element('a'); link.href = url; link.download = 'registration_' + (batch.records.length === 1 ? activeJan : 'multiple') + '.csv';
+    const link = element('a');
+    link.href = url;
+    if (batch.records.length === 1) {
+      const item = batch.records[0];
+      const source = batch.files.find(file => file.jan === item.jan)?.file_name || '';
+      const sourcePrefix = source.split('【')[0].trim();
+      const management = item.management_number || (source.includes('【') ? sourcePrefix : '');
+      const product = item.fields['商品名称'].value;
+      const filename = management + '【新商品登録資料】' + item.jan + product;
+      link.download = filename.replace(/[\\/:*?"<>| -]/g, ' ').trim().slice(0, 180) + '.csv';
+    } else {
+      link.download = '複数商品【新商品登録資料】.csv';
+    }
     document.body.append(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url),1000);
     message('登录资料 CSV 已下载。');
   }
@@ -307,3 +319,4 @@
     }
   }
 })();
+
